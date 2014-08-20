@@ -35,6 +35,7 @@ import java.util.Properties;
 public class FairPlay extends JFrame { 
 		private static final long serialVersionUID = 1L;
 		private JTextField rez;
+		private JTextField rez1;
 		private JFormattedTextField nn;
 		private JFormattedTextField aa;
 		private JFormattedTextField ss;
@@ -62,21 +63,22 @@ public class FairPlay extends JFrame {
 		private static String BORDER;
 		private static String ABSTRACT1;
 		private static String ABSTRACT2;
+		private static String LABEL_6;
 		
 		private String leng;
 		
 		FairPlay() throws IOException{
 			super ("Fair Play");
 			setDefaultCloseOperation(EXIT_ON_CLOSE);
-	        setSize(500, 500);
+	        setSize(430, 500);
 	        setLocationRelativeTo(null);
 	        setLayout(null);
 	        
-	        BufferedReader reader = new BufferedReader(new FileReader("leng.txt"));
+	        final BufferedReader reader = new BufferedReader(new FileReader("leng.txt"));
 	        leng = reader.readLine();
 	        reader.close();
 
-	        final Properties props = new Properties();
+	        Properties props = new Properties();
 	        FileInputStream in = null;
 	        InputStreamReader inR = null;
 	        try {
@@ -111,6 +113,7 @@ public class FairPlay extends JFrame {
 	        BORDER = props.getProperty("BORDER");
 	        ABSTRACT1 = props.getProperty("ABSTRACT1");
 	        ABSTRACT2 = props.getProperty("ABSTRACT2");
+	        LABEL_6 = props.getProperty("LABEL_6");
 	        
 	        JMenuBar menuBar = new JMenuBar();
 	        
@@ -213,6 +216,16 @@ public class FairPlay extends JFrame {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
+	    	        
+	    	        JFrame myWindow1 = null;
+					try {
+						myWindow1 = new FairPlay();
+					} catch (IOException e1) {
+						e1.printStackTrace();
+					}
+    	        	myWindow1.setVisible(true);
+    	        	setVisible(false);
+    	        	
 	            }
 	        });
 	         
@@ -237,7 +250,15 @@ public class FairPlay extends JFrame {
 					} catch (IOException e1) {
 						e1.printStackTrace();
 					}
-	            }
+	    	        	JFrame myWindow1 = null;
+						try {
+							myWindow1 = new FairPlay();
+						} catch (IOException e1) {
+							e1.printStackTrace();
+						}
+	    	        	myWindow1.setVisible(true);
+	    	        	setVisible(false);
+					}
 	        });
 	        
 	        menuBar.add(fileMenu2);
@@ -325,12 +346,23 @@ public class FairPlay extends JFrame {
 		    
 		    JLabel label5 = new JLabel(LABEL_5);
 		    label5.setSize(120, 20);
-		    label5.setLocation(150, 300);
+		    label5.setLocation(40, 300);
 		    add(label5);
 		    rez = new JTextField();
+		    rez.setEditable(false);
 		    rez.setSize(145, 20);
-		    rez.setLocation(150, 320);
+		    rez.setLocation(40, 320);
 		    add(rez);
+		    
+		    JLabel label6 = new JLabel(LABEL_6);
+		    label6.setSize(140, 20);
+		    label6.setLocation(250, 300);
+		    add(label6);
+		    rez1 = new JTextField();
+		    rez1.setEditable(false);
+		    rez1.setSize(145, 20);
+		    rez1.setLocation(250, 320);
+		    add(rez1);
 		    
 		    JButton button = new JButton(BUTTON);
 		    ActionListener actionListener = new TestActionListener();
@@ -343,7 +375,7 @@ public class FairPlay extends JFrame {
 	        Border border = BorderFactory.createTitledBorder(BORDER);
 	        panel.setBorder(border);
 	        panel.setSize(300,80);
-	        panel.setLocation(50, 160);
+	        panel.setLocation(60, 160);
 	        ButtonGroup group = new ButtonGroup();
 	        abstract1 = new JRadioButton(ABSTRACT1);
 	        abstract1.setSelected(true);
@@ -375,12 +407,18 @@ public class FairPlay extends JFrame {
 			string3 = ss.getText().replaceAll(" ", "");
 			
 			if (string1 == null || "".equals(string1) || string1.trim().length() == 0){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! \n Ви не ввели значення Кількості клітинок. \n Будьте такі ласкаві та введіть Кількость клітинок для продовження підрахунку. \n Дякую!");
 				}
 			else if (string2 == null || "".equals(string2) || string2.trim().length() == 0){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! \n Ви не ввели значення Кількості зірочок. \n Будьте такі ласкаві та введіть Кількость зірочок для продовження підрахунку. \n Дякую!");
 				}
 			else if (string3 == null || "".equals(string3) || string3.trim().length() == 0){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! \n Ви не ввели значення Кількості спроб. \n Будьте такі ласкаві та введіть Кількость спроб для продовження підрахунку. \n Дякую!");
 				}
 			else {
@@ -389,12 +427,18 @@ public class FairPlay extends JFrame {
 			s = Integer.parseInt(string3);
 			
 			if (n<a){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! А що це Ви тут робите? \n Кількість зірочок не може бути більшою ніж кількість клітинок! \n Спрбуйте ще раз.");
 				}
 			else if (n<s){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! А що це Ви тут робите? \n Кількість спроб не може бути більшою ніж кількість клітинок! \n Спрбуйте ще раз.");
 				}
 			else if (s<a){
+				rez.setText("");
+				rez1.setText("");
 				JOptionPane.showMessageDialog(null, "Шановний! А що це Ви тут робите? \n Кількість спроб не може бути меншою ніж кількість зірочок! \n Спрбуйте ще раз.");
 				}
 			else {
@@ -416,6 +460,8 @@ public class FairPlay extends JFrame {
 					}
 				
 			rez.setText(String.valueOf(rezult));
+			
+			rez1.setText(String.valueOf(1/rezult));
 	}
 	}}
 	}
